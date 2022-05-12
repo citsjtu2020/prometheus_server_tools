@@ -1,9 +1,9 @@
 package main
 
 import (
-	"client-autoscale/prometheus_controller"
+	"prometheus_server_tools/prometheus_controller"
 	//"flag"
-	"client-autoscale/prometheus_tools"
+	"prometheus_server_tools/prometheus_tools"
 	"flag"
 	"fmt"
 	"github.com/bitly/go-simplejson"

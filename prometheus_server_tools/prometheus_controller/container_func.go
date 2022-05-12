@@ -1,7 +1,7 @@
 package prometheus_controller
 
 import (
-	"client-autoscale/prometheus_tools"
+	"prometheus_server_tools/prometheus_tools"
 	"fmt"
 	"sync"
 )
