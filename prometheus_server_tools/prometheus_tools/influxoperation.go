@@ -22,6 +22,7 @@ func ConnInflux(address string,username string,password string) client.Client {
 	})
 	if err != nil {
 		log.Fatal(err)
+		fmt.Println("failed to connect to influxdb")
 	}
 	return cli
 }
@@ -149,7 +150,7 @@ func WritesContainerAccPoints(cli client.Client,database string,precision string
 	}
 
 	if err := cli.Write(bp); err != nil {
-		//log.Fatal(err)
+		log.Fatal(err)
 		return ok,err
 	}else {
 		ok = true
@@ -216,7 +217,7 @@ func WritesContainerNetworkAccPoints(cli client.Client,database string,precision
 	}
 
 	if err := cli.Write(bp); err != nil {
-		//log.Fatal(err)
+		log.Fatal(err)
 		return ok,err
 	}else {
 		ok = true

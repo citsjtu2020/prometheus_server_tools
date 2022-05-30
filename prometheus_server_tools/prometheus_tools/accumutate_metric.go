@@ -1,8 +1,8 @@
 package prometheus_tools
 
-import (
-	"strings"
-)
+// import (
+// 	"strings"
+// )
 
 //import "fmt"
 
@@ -110,9 +110,12 @@ func Container_CPU_Usage(address string,start int64,end int64,unit string,step i
 					for k3,v3 := range v2{
 						tmpquota,ok31 := quota[k1][k2][k3]
 						tmp_period,ok32 := cpu_period[k1][k2][k3]
-						node_name := strings.Split(v3.node,"-")
-						tmp_time,ok33 := node_seconds[node_name[len(node_name)-1]]
-						if (!ok31 || !ok32 || !ok33){
+						// node_name := strings.Split(v3.node,"-")
+						tmp_time,ok33 := node_seconds[v3.node]
+						if(!ok31){
+							continue
+						}
+						if (!ok32 || !ok33){
 							continue
 						}
 						tmputil := ContainerAccResult{}
@@ -429,17 +432,20 @@ func Container_Network_Error(address string,start int64,end int64,unit string,st
 	results_error := make([]ContainerNetworkAccResult,0,len(transmit_result))
 	//recv_error := make([]ContainerNetworkAccResult,0,len(receive_result))
 	for k1,v1 := range transmit{
+		//ns
 		_,ok11 := receive[k1]
 		if (!ok11){
 			continue
 		}else{
 			for k2,v2 := range v1{
+				//pod
 				_,ok21 := receive[k1][k2]
 				//fmt.Println(v2)
 				if (!ok21){
 					continue
 				}else{
 					for k3,v3 := range v2{
+						// cni
 						_,ok31 := receive[k1][k2][k3]
 						if (!ok31){
 							continue
@@ -447,8 +453,8 @@ func Container_Network_Error(address string,start int64,end int64,unit string,st
 							for k4,v4 := range v3{
 								tmpreceive,ok41 := receive[k1][k2][k3][k4]
 
-								node_name := strings.Split(v4.node,"-")
-								tmp_time,ok42 := node_seconds[node_name[len(node_name)-1]]
+								// node_name := strings.Split(v4.node,"-")
+								tmp_time,ok42 := node_seconds[v4.node]
 								if (!ok41 || !ok42){
 									continue
 								}
@@ -563,8 +569,8 @@ func Container_Network_Packet(address string,start int64,end int64,unit string,s
 								tmpreceive,ok41 := receive[k1][k2][k3][k4]
 								tmpreceive_drop,ok42 := receive_drop[k1][k2][k3][k4]
 								tmptransmit_drop,ok43 := transmit_drop[k1][k2][k3][k4]
-								node_name := strings.Split(v4.node,"-")
-								tmp_time,ok44 := node_seconds[node_name[len(node_name)-1]]
+								// node_name := strings.Split(v4.node,"-")
+								tmp_time,ok44 := node_seconds[v4.node]
 								if (!ok41 || !ok42||!ok43 || !ok44){
 									continue
 								}
@@ -670,8 +676,8 @@ func Container_Network_Bytes(address string,start int64,end int64,unit string,st
 						}else{
 							for k4,v4 := range v3{
 								tmpreceive,ok41 := receive[k1][k2][k3][k4]
-								node_name := strings.Split(v4.node,"-")
-								tmp_time,ok44 := node_seconds[node_name[len(node_name)-1]]
+								// node_name := strings.Split(v4.node,"-")
+								tmp_time,ok44 := node_seconds[v4.node]
 								if (!ok41 || !ok44){
 									continue
 								}

@@ -15,6 +15,7 @@ type ManageController struct {
 	RM *sync.RWMutex
 }
 
+// 用于初始化ManageController
 func InitMC() (mc *ManageController){
 	mc = &ManageController{}
 	mc.RM = new(sync.RWMutex)

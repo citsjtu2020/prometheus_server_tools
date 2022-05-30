@@ -2,7 +2,7 @@
   "node":{"Node01":"01","Node02":"02","Node03":"03",
              "Node04":"04"},
   "port": 9090,
-  "addr": "10.64.0.39",
+  "addr": "10.10.84.227",
   "node_ip": {"Node01": "192.168.1.11","Node02":"192.168.1.12","Node03": "192.168.1.17","Node04": "192.168.1.18"},
   "metrics":["container_cpu_cfs_periods_total",
                 "container_cpu_cfs_throttled_periods_total",

@@ -38,6 +38,7 @@ func SortPoint(points []Rawpoint, by SortBy) {
 //
 //}
 
+// A struct which stores a piece of data
 type ContainerResult struct {
 	container string
 	pod       string

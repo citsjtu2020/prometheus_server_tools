@@ -87,7 +87,7 @@ func main() {
 	jsonfile = flag.String("file","pro_metric_config.json","(optional) absolute path to the kubeconfig file")
 	//serverport = flag.Int("proport",9090,"prome")
 	//
-	influxip = flag.String("influxip","192.168.1.11","(optional) absolute path to the kubeconfig file")
+	influxip = flag.String("influxip","192.168.1.12","(optional) absolute path to the kubeconfig file")
 	influxport = flag.Int("influxport",8086,"(optional) absolute path to the kubeconfig file")
 	influxuser = flag.String("influxuser","admin","(optional) absolute path to the kubeconfig file")
 	influxpwd = flag.String("influxpwd","admin","(optional) absolute path to the kubeconfig file")
@@ -112,9 +112,11 @@ func main() {
 	fmt.Println(time.Now().UnixNano())
 	//nowStr = now.Format("2006-January-02 03:04:05.999 pm")
 	//	fmt.Println(nowStr)
-	nowStr := time.Now().UTC().Format("2022-02-02T15:32:07.999Z")
+	// nowStr := time.Now().UTC().Format("2022-02-02T15:32:07.999Z +0800")
+	nowStr := time.Now().UTC().Format("2006-01-02 15:04:05.999Z")
 	fmt.Println(nowStr)
-	server_address := prometheus_tools.Generate_address(prom_param.Addr,prom_param.Port)
+	// Prometheus server ip:port
+	var server_address string= prometheus_tools.Generate_address(prom_param.Addr,prom_param.Port)
 	fmt.Println(server_address)
 	url := prometheus_tools.Gen_range_url(server_address,prom_param.Metrics[0],time.Now().Unix()-120,time.Now().Unix()-60,"s",5)
 	//container_network_receive_bytes_total
@@ -129,16 +131,18 @@ func main() {
 	fmt.Println(t)
 	results := prometheus_tools.Container_Raw_Metric(url)
 	fmt.Println(len(results))
-	fmt.Println(results[0])
-
+	// fmt.Println(results[0])
+	
 	results2 := prometheus_tools.Container_Network_Metric(url2)
 	//results2 := prometheus_tools.Container_CPU_Usage(server_address,time.Now().Unix()-120,time.Now().Unix()-96,"s",3)
-	fmt.Println(results2)
+	// fmt.Println(results2)
+	fmt.Println(len(results2))
 	inluxaddress := prometheus_tools.Gen_Influx_Addr(*influxip,*influxport)
 	conn := prometheus_tools.ConnInflux(inluxaddress,*influxuser,*influxpwd)
 	fmt.Println(conn)
 	fmt.Println(influxbase)
 	conn.Close()
+	// 一个计时器
 	timer = prometheus_tools.NewGlobalTimer("s",10)
 	kkk := make(map[string]int)
 	fmt.Println()
@@ -164,6 +168,8 @@ func main() {
 	mc.RegisterContainerNetworkController("network_err",1,prometheus_tools.Container_Network_Error,false)
 	mc.RegisterContainerNetworkController("network_bytes",1,prometheus_tools.Container_Network_Bytes,false)
 	mc.RegisterContainerNetworkController("network_packet",1,prometheus_tools.Container_Network_Packet,false)
+	// Node的指标聚合 cpu 内存
+
 	for key,get_func := range mc.Container_func{
 		go prometheus_controller.Container_Result(server_address,int64(*duration),*unit,*step,mc.Container_res[key],mc.Global_time[key],&wg,get_func)
 	}
@@ -188,6 +194,7 @@ func main() {
 				res,ok := <- mc.Container_res[k]
 				if ok{
 					//fmt.Println(len(res))
+					// k1 
 					for k1,v1 := range res{
 						_,ok1 := container_res[k1]
 						if !ok1{

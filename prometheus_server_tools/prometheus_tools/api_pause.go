@@ -84,6 +84,7 @@ func Do(url string) string{
     return plainText
 }
 
+// query data from url
 func Container_Raw_Metric(url string) []ContainerResult{
 	raws := Do(url)
 	js,err := simplejson.NewJson([]byte(raws))
