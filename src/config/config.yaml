@@ -1,0 +1,28 @@
+dumper:
+  interval: 60
+influx:
+  endpoints: http://127.0.0.1:8086
+  user: root
+  pwd: kubernetes
+  database: test
+prometheus:
+  endpoints: http://127.0.0.1:30090
+  scrape_interval: 3
+  node_ip:
+      izbp1bzbzd1dmznk9uea98z: 172.16.190.76
+      izbp1bzbzd1dmznk9uea99z: 172.16.190.81
+      izbp1bzbzd1dmznk9uea9az: 172.16.190.86
+      izbp1bzbzd1dmznk9uea9bz: 172.16.190.83
+      izbp1bzbzd1dmznk9uea9cz: 172.16.190.79
+      izbp1bzbzd1dmznk9uea9dz: 172.16.190.80
+      izbp1bzbzd1dmznk9uea9ez: 172.16.190.74
+      izbp1bzbzd1dmznk9uea9fz: 172.16.190.77
+      izbp1bzbzd1dmznk9uea9gz: 172.16.190.75
+      izbp1bzbzd1dmznk9uea9iz: 172.16.190.85
+      izbp1bzbzd1dmznk9uea9jz: 172.16.190.73
+      izbp1bzbzd1dmznk9uea9kz: 172.16.190.84
+      izbp1bzbzd1dmznk9uea9lz: 172.16.190.82
+      izbp1i0eoe5e2ecthr05d0z: 172.16.190.87
+  metrics: [
+    "container_cpu_utilization"
+  ]
