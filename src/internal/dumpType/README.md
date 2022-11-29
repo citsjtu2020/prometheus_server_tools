@@ -1,0 +1,1 @@
+avg_over_time(kube_pod_container_resource_requests_cpu_cores[1m])
